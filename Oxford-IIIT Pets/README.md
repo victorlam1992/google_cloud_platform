@@ -77,3 +77,27 @@ sed -i "s|PATH_TO_BE_CONFIGURED|"gs://${YOUR_GCS_BUCKET}"/data|g" object_detecti
 # Copy edited template to cloud.
 gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://${YOUR_GCS_BUCKET}/data/faster_rcnn_resnet101_pets.config
 ```
+
+## Checking Your Google Cloud Storage Bucket
+
+You should have uploaded the ```training/validation datasets``` (including label map), our ```COCO trained FasterRCNN finetune checkpoint``` and your ```job configuration``` to your Google Cloud Storage Bucket. 
+
+Your bucket should look like the following:
+
+```
++ ${YOUR_GCS_BUCKET}/
+  + data/
+    - faster_rcnn_resnet101_pets.config
+    - model.ckpt.index
+    - model.ckpt.meta
+    - model.ckpt.data-00000-of-00001
+    - pet_label_map.pbtxt
+    - pet_train.record
+    - pet_val.record
+```
+
+You can inspect your bucket using the Google Cloud Storage browser:
+
+https://console.cloud.google.com/storage/browser
+
+
