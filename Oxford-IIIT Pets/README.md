@@ -59,3 +59,21 @@ gsutil cp faster_rcnn_resnet101_coco_11_06_2017/model.ckpt.* gs://${YOUR_GCS_BUC
 
 ## Configuring the Object Detection Pipeline
 
+In the ```object_detection/samples/configs``` folder, there are skeleton object_detection configuration files. 
+
+We will use ```faster_rcnn_resnet101_pets.config``` as a starting point for configuring the pipeline.
+
+Search the file for instances of ```PATH_TO_BE_CONFIGURED``` and **replace** them with the appropriate value (typically ```gs://${YOUR_GCS_BUCKET}/data/```).
+
+Then, **upload** your edited file onto GCS, making note of the path it was uploaded to (we'll need it when starting the ```training/eval``` jobs).
+
+```
+# From tensorflow/models/research/
+
+# Edit the faster_rcnn_resnet101_pets.config template. Please note that there
+# are multiple places where PATH_TO_BE_CONFIGURED needs to be set.
+sed -i "s|PATH_TO_BE_CONFIGURED|"gs://${YOUR_GCS_BUCKET}"/data|g" object_detection/samples/configs/faster_rcnn_resnet101_pets.config
+
+# Copy edited template to cloud.
+gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://${YOUR_GCS_BUCKET}/data/faster_rcnn_resnet101_pets.config
+```
