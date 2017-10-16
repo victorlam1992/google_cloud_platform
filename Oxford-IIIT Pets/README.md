@@ -42,3 +42,20 @@ gsutil cp pet_train.record gs://${YOUR_GCS_BUCKET}/data/pet_train.record
 gsutil cp pet_val.record gs://${YOUR_GCS_BUCKET}/data/pet_val.record
 gsutil cp object_detection/data/pet_label_map.pbtxt gs://${YOUR_GCS_BUCKET}/data/pet_label_map.pbtxt
 ```
+
+## Downloading a COCO-pretrained Model for Transfer Learning
+
+Download ```COCO-pretrained Faster R-CNN with Resnet-101 model```:
+
+http://storage.googleapis.com/download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_coco_11_06_2017.tar.gz
+
+Unzip the contents of the folder and copy the ```model.ckpt*``` files into your GCS Bucket.
+
+```
+wget http://storage.googleapis.com/download.tensorflow.org/models/object_detection/faster_rcnn_resnet101_coco_11_06_2017.tar.gz
+tar -xvf faster_rcnn_resnet101_coco_11_06_2017.tar.gz
+gsutil cp faster_rcnn_resnet101_coco_11_06_2017/model.ckpt.* gs://${YOUR_GCS_BUCKET}/data/
+```
+
+## Configuring the Object Detection Pipeline
+
