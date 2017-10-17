@@ -67,6 +67,13 @@ tar -xvf faster_rcnn_resnet101_coco_11_06_2017.tar.gz
 gsutil cp faster_rcnn_resnet101_coco_11_06_2017/model.ckpt.* gs://${YOUR_GCS_BUCKET}/data/
 ```
 
+For example:
+```
+gsutil cp faster_rcnn_resnet101_coco_11_06_2017/model.ckpt.* gs://oxford_pet_test/data/
+```
+
+```model.ckpt.meta```, ```model.ckpt.index```, ```model.ckpt.data-00000-of-00001``` will be uploaded
+
 ## Configuring the Object Detection Pipeline
 
 In the ```object_detection/samples/configs``` folder, there are skeleton object_detection configuration files. 
