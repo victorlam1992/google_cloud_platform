@@ -72,7 +72,7 @@ For example:
 gsutil cp faster_rcnn_resnet101_coco_11_06_2017/model.ckpt.* gs://oxford_pet_test/data/
 ```
 
-```model.ckpt.meta```, ```model.ckpt.index```, ```model.ckpt.data-00000-of-00001``` will be uploaded
+```model.ckpt.meta```, ```model.ckpt.index```, ```model.ckpt.data-00000-of-00001``` will be uploaded.
 
 ## Configuring the Object Detection Pipeline
 
@@ -98,6 +98,7 @@ gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs:
 If code above is not working, please open the config file and edit the 'PATH_TO_BE_CONFIGURED' to your Bucket name.
 
 Then run:
+
 ```gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://oxford_pet_test/data/faster_rcnn_resnet101_pets.config```
 
 
@@ -123,4 +124,22 @@ You can inspect your bucket using the Google Cloud Storage browser:
 
 https://console.cloud.google.com/storage/browser
 
+## Starting Training and Evaluation Jobs on Google Cloud ML Engine
 
+Before we can start a job on Google Cloud ML Engine, we must:
+
+1. Package the Tensorflow Object Detection code.
+
+2. Write a cluster configuration for our Google Cloud ML job.
+
+To package the Tensorflow Object Detection code, run the following commands from the ```tensorflow/models/research/``` directory:
+
+```
+# From tensorflow/models/research/
+# Run first
+python setup.py sdist
+# Then run this
+(cd slim && python setup.py sdist)
+```
+
+Two tar.gz files created at ```dist/object_detection-0.1.tar.gz``` and ```slim/dist/slim-0.1.tar.gz```.
