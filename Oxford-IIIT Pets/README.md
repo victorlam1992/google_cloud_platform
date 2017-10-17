@@ -95,6 +95,12 @@ sed -i "s|PATH_TO_BE_CONFIGURED|"gs://${YOUR_GCS_BUCKET}"/data|g" object_detecti
 gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://${YOUR_GCS_BUCKET}/data/faster_rcnn_resnet101_pets.config
 ```
 
+If code above is not working, please open the config file and edit the 'PATH_TO_BE_CONFIGURED' to your Bucket name.
+
+Then run:
+```gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://oxford_pet_test/data/faster_rcnn_resnet101_pets.config```
+
+
 ## Checking Your Google Cloud Storage Bucket
 
 You should have uploaded the ```training/validation datasets``` (including label map), our ```COCO trained FasterRCNN finetune checkpoint``` and your ```job configuration``` to your Google Cloud Storage Bucket. 
