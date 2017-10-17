@@ -46,6 +46,13 @@ gsutil cp pet_val.record gs://${YOUR_GCS_BUCKET}/data/pet_val.record
 gsutil cp object_detection/data/pet_label_map.pbtxt gs://${YOUR_GCS_BUCKET}/data/pet_label_map.pbtxt
 ```
 
+For example:
+```
+gsutil cp pet_train.record gs://oxford_pet_test/data/pet_train.record
+gsutil cp pet_val.record gs://oxford_pet_test/data/pet_val.record
+gsutil cp object_detection/data/pet_label_map.pbtxt gs://oxford_pet_test/data/pet_label_map.pbtxt
+```
+
 ## Downloading a COCO-pretrained Model for Transfer Learning
 
 Download ```COCO-pretrained Faster R-CNN with Resnet-101 model```:
