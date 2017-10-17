@@ -26,6 +26,9 @@ Run the following commands from the ```tensorflow/models/research/``` directory:
 ```
 # From tensorflow/models/research/
 python object_detection/create_pet_tf_record.py --label_map_path=object_detection/data/pet_label_map.pbtxt --data_dir=`pwd` --output_dir=`pwd`
+
+# If error occur, use this instead
+python object_detection/create_pet_tf_record.py --label_map_path=object_detection/data/pet_label_map.pbtxt --data_dir=C:\ProgramData\Anaconda3\envs\tensorflow\models\research --output_dir=C:\ProgramData\Anaconda3\envs\tensorflow\models\research
 ```
 
 Note: It is normal to see some warnings when running this script. You may ignore them.
