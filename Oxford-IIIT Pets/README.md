@@ -140,8 +140,41 @@ To package the Tensorflow Object Detection code, run the following commands from
 # From tensorflow/models/research/
 # Run first
 python setup.py sdist
+
 # Then run this
 (cd slim && python setup.py sdist)
 ```
 
 Two tar.gz files created at ```dist/object_detection-0.1.tar.gz``` and ```slim/dist/slim-0.1.tar.gz```.
+
+Next, we configure the cluster in cloud to use 10 training jobs (1 master + 9 workers) and three parameters servers. The configuration file can be found at ```object_detection/samples/cloud/cloud.yml```.
+
+Then, we can start training, execute the following command from the ```tensorflow/models/research/``` directory:
+
+```
+# From tensorflow/models/research/
+gcloud ml-engine jobs submit training test_object_4 --job-dir=gs://oxford_pet_test/train --packages dist/object_detection-0.1.tar.gz,slim/dist/slim-0.1.tar.gz --module-name object_detection.train --region asia-east1 --config object_detection/samples/cloud/cloud.yml -- --train_dir=gs://oxford_pet_test/train --pipeline_config_path=gs://oxford_pet_test/data/faster_rcnn_resnet101_pets.config
+```
+
+Once training has started, we can run an evaluation concurrently:
+```
+# From tensorflow/models/research/
+gcloud ml-engine jobs submit training test_object_eval_4 --job-dir=gs://oxford_pet_test/train --packages dist/object_detection-0.1.tar.gz,slim/dist/slim-0.1.tar.gz --module-name object_detection.eval --region asia-east1 --scale-tier BASIC_GPU -- --checkpoint_dir=gs://oxford_pet_test/train --eval_dir=gs://oxford_pet_test/eval --pipeline_config_path=gs://oxford_pet_test/data/faster_rcnn_resnet101_pets.config
+```
+
+Users can monitor and stop training and evaluation jobs on the ML Engine Dashboard:
+
+https://console.cloud.google.com/mlengine/jobs
+
+## Monitoring Progress with Tensorboard
+
+You can monitor progress of the training and eval jobs by running Tensorboard on your local machine:
+
+```
+# This command needs to be run once to allow your local machine to access your GCS bucket.
+gcloud auth application-default login
+
+tensorboard --logdir=gs://${YOUR_GCS_BUCKET}
+```
+
+Once Tensorboard is running, navigate to localhost:6006 from your favourite web browser.
