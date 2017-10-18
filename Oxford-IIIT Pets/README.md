@@ -97,6 +97,8 @@ gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs:
 
 If code above is not working, please open the config file and edit the 'PATH_TO_BE_CONFIGURED' to your Bucket name.
 
+E.g. ```PATH_TO_BE_CONFIGURED``` to ```oxford_pet_test/data```
+
 Then run:
 
 ```gsutil cp object_detection/samples/configs/faster_rcnn_resnet101_pets.config gs://oxford_pet_test/data/faster_rcnn_resnet101_pets.config```
