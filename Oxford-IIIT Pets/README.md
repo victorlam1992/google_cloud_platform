@@ -203,4 +203,8 @@ python object_detection/export_inference_graph.py \
     --output_directory output_inference_graph.pb
 ```
 
-Afterwards, you should see a graph named ```output_inference_graph.pb```.
+For example:
+
+```python object_detection/export_inference_graph.py --input_type image_tensor --pipeline_config_path object_detection/samples/configs/faster_rcnn_resnet101_pets.config --trained_checkpoint_prefix model.ckpt-8137 --output_directory output_inference_graph.pb```
+
+Afterwards, you should see a graph named ```output_inference_graph.pb``` (folder).
