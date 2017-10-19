@@ -178,3 +178,29 @@ tensorboard --logdir=gs://${YOUR_GCS_BUCKET}
 ```
 
 Once Tensorboard is running, navigate to localhost:6006 from your favourite web browser.
+
+## Exporting the Tensorflow Graph
+
+After your model has been trained, you should export it to a Tensorflow graph proto. 
+
+First, you need to identify a candidate checkpoint to export. You can search your bucket using the Google Cloud Storage Browser. The file should be stored under ```${YOUR_GCS_BUCKET}/train```. The checkpoint will typically consist of three files:
+
+```
+    model.ckpt-${CHECKPOINT_NUMBER}.data-00000-of-00001
+    model.ckpt-${CHECKPOINT_NUMBER}.index
+    model.ckpt-${CHECKPOINT_NUMBER}.meta
+```
+
+After you've identified a candidate checkpoint to export, run the following command from ```tensorflow/models/research/```:
+
+```
+# From tensorflow/models/research/
+gsutil cp gs://oxford_pet_test/train/model.ckpt-8177.* .
+python object_detection/export_inference_graph.py \
+    --input_type image_tensor \
+    --pipeline_config_path object_detection/samples/configs/faster_rcnn_resnet101_pets.config \
+    --trained_checkpoint_prefix model.ckpt-${CHECKPOINT_NUMBER} \
+    --output_directory output_inference_graph.pb
+```
+
+Afterwards, you should see a graph named ```output_inference_graph.pb```.
